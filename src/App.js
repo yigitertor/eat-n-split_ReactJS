@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const initialFriends = [
    {
       id: 118836,
@@ -19,14 +21,30 @@ const initialFriends = [
    },
 ];
 
+function Button({ children, onClick }) {
+   return (
+      <button className="button" onClick={onClick}>
+         {children}
+      </button>
+   );
+}
+
 export default function App() {
+   const [showAddFriend, setShowAddFriend] = useState(false);
+
+   function handleShowAddFriend() {
+      setShowAddFriend((show) => !show);
+   }
+
    return (
       <div className="app">
          <div className="sidebar">
             <FriendsList />
-            <Button>Add Friend</Button>
-            <FormAddFriend />
+            {showAddFriend && <FormAddFriend />}
+            <Button onClick={handleShowAddFriend}>{showAddFriend ? "Close" : "Add Friend"}</Button>
          </div>
+
+         <FormSplitBill />
       </div>
    );
 }
@@ -60,13 +78,9 @@ function Friend({ friend }) {
          )}
          {friend.balance === 0 && <p>You and {friend.name} are even.</p>}
 
-         <Button />
+         <Button>Select</Button>
       </li>
    );
-}
-
-function Button({ children }) {
-   return <button className="button">{children}</button>;
 }
 
 function FormAddFriend() {
@@ -78,7 +92,32 @@ function FormAddFriend() {
          <label>🖼️ Image URL</label>
          <input type="text" />
 
-         <button className="button">Select</button>
+         <Button>Select</Button>
+      </form>
+   );
+}
+
+function FormSplitBill() {
+   return (
+      <form className="form-split-bill">
+         <h2>Split a bill with X</h2>
+
+         <label>💰Bill Value</label>
+         <input type="text" />
+
+         <label>🙇‍♂️Your Expense</label>
+         <input type="text" />
+
+         <label>🧑🏻‍🤝‍👩🏼X's Expense</label>
+         <input type="text" />
+
+         <label>💲Who's paying the bill ?</label>
+         <select>
+            <option value="user">You</option>
+            <option value="friend">X</option>
+         </select>
+
+         <Button>Split Bill</Button>
       </form>
    );
 }
