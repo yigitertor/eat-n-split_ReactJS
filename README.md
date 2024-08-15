@@ -11,7 +11,7 @@ Eat-n-Split is a simple and intuitive bill-splitting web application that allows
 
 ## Screenshots
 
-![eat-n-split Screenshot](".\public\app_screenshot.png")
+![eat-n-split Screenshot](./public/app_screenshot.png)
 
 ## How It Works
 
